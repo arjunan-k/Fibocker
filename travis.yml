@@ -1,4 +1,5 @@
-# Rename this file .travis.yml
+# Rename this file as .travis.yml
+
 language: generic 
 sudo: required
 services:
@@ -15,14 +16,21 @@ after_success:
   - docker build -t arjunank/multi-nginx ./nginx
   - docker build -t arjunank/multi-server ./server
   - docker build -t arjunank/multi-worker ./worker
+  # Log into Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker_login -u "$DOCKER_USERNAME" --password-stdin
+  # Take and push Images to Docker Hub
+  - docker push arjunank/multi-client
+  - docker push arjunank/multi-nginx
+  - docker push arjunank/multi-server
+  - docker push arjunank/multi-worker
 
 deploy:
   provider: elasticbeanstalk
   region: "ap-south-1"
-  app: "docker_react"
-  env: "Dockerreact-env"
+  app: "fibocker"
+  env: "Fibocker-env"
   bucket_name: $EXISTING_BUCKET_NAME
-  bucket_path: "docker_react"
+  bucket_path: "fibocker"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
