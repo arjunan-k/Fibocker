@@ -5,7 +5,7 @@ const tasks = () => {
     return (
         <div>
             <p>
-            Im some other page manh
+            I am some other page Arjunan K!
             </p>
             <Link to="/">Go back home</Link>
         </div>

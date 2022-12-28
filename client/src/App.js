@@ -15,7 +15,7 @@ class App extends Component {
             {/* <img src={logo} className="App-logo" alt="logo" /> */}
             <h1>FIBOCKER</h1>
               <Link className='link' to="/">Home</Link>
-              <Link className='link' to="/otherpage">Other Page</Link>
+              <Link className='link' to="/otherpage">Next Page</Link>
               <div>
                 <Route exact path="/" component={Fib}/>
                 <Route exact path="/otherpage" component={OtherPage}/>
