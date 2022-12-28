@@ -1,0 +1,29 @@
+# Rename this file .travis.yml
+language: generic 
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t arjunank/fibocker-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true arjunank/fiboker-test npm test
+
+after_success:
+  - docker build -t arjunank/multi-client ./client
+  - docker build -t arjunank/multi-nginx ./nginx
+  - docker build -t arjunank/multi-server ./server
+  - docker build -t arjunank/multi-worker ./worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "docker_react"
+  env: "Dockerreact-env"
+  bucket_name: $EXISTING_BUCKET_NAME
+  bucket_path: "docker_react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: "$AWS_SECRET_KEY"
