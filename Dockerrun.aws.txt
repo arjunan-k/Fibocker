@@ -1,5 +1,4 @@
 # Rename this file as Dockerrun.aws.json
-
 {
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
